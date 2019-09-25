@@ -31,16 +31,15 @@ export default {
   components: {
     BBack
   },
-  data() {
+  data(context) {
     return {
       posts: []
     }
   },
-  async created() {
-    const response = await fetch(
-      'https://jsonplaceholder.typicode.com/posts?page=1'
-    )
-    this.posts = await response.json()
+  async asyncData() {
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts')
+    const posts = await response.json()
+    return { posts }
   }
 }
 </script>

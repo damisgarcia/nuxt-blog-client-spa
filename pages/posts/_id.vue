@@ -4,19 +4,7 @@
       <div class="title is-1 is-spaced">{{ post.title }}</div>
       <div class="subtitle is-3">{{ post.body }}</div>
     </article>
-    <div class="comments">
-      <div class="title is-6 comments__heading">Comments:</div>
-      <ul class="comments__list">
-        <li
-          v-for="comment in comments"
-          :key="comment.id"
-          class="comments__list-item"
-        >
-          <div class="title is-5">{{ comment.email }}</div>
-          <div class="subtitle is-6">{{ comment.body }}</div>
-        </li>
-      </ul>
-    </div>
+    <comments />
     <b-back />
   </div>
 </template>
@@ -24,36 +12,25 @@
 <script>
 import fetch from 'isomorphic-fetch'
 import BBack from '@/components/BackButton'
+import Comments from '@/components/Comments'
 
 export default {
   components: {
-    BBack
+    BBack,
+    Comments
   },
   data() {
     return {
-      post: {},
-      comments: []
+      post: null
     }
   },
-  created() {
-    this.fetchPost()
-  },
-  methods: {
-    async fetchPost() {
-      const { params } = this.$route
-      const response = await fetch(
-        `https://jsonplaceholder.typicode.com/posts/${params.id}`
-      )
-      this.post = await response.json()
-      await this.fetchComments(this.post.id)
-    },
-    async fetchComments(id) {
-      const response = await fetch(
-        `https://jsonplaceholder.typicode.com/comments`
-      )
-      const comments = await response.json()
-      this.comments = comments.filter((c) => c.postId === id)
-    }
+  async asyncData({ params }) {
+    const response = await fetch(
+      `https://jsonplaceholder.typicode.com/posts/${params.id}`
+    )
+    const post = await response.json()
+
+    return { post }
   }
 }
 </script>
