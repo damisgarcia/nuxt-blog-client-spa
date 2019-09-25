@@ -19,9 +19,11 @@ export default {
     BBack,
     Comments
   },
-  data() {
+  head() {
+    const { post } = this
     return {
-      post: null
+      title: post.title,
+      meta: [{ hid: 'description', name: 'description', content: post.body }]
     }
   },
   async asyncData({ params }) {
@@ -29,7 +31,6 @@ export default {
       `https://jsonplaceholder.typicode.com/posts/${params.id}`
     )
     const post = await response.json()
-
     return { post }
   }
 }
