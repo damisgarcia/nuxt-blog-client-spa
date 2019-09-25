@@ -1,2 +1,11 @@
-import profile from './profile'
-export default { modules: { profile } }
+const getters = {
+  isAuthenticated(state) {
+    return state.auth.loggedIn
+  },
+
+  currentUser(state) {
+    return state.auth.user
+  }
+}
+
+export default { getters }

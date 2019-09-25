@@ -36,8 +36,8 @@
 import Card from '@/components/Card'
 
 export default {
+  middleware: ['auth'],
   name: 'HomePage',
-
   components: {
     Card
   }

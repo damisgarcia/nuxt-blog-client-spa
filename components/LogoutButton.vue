@@ -1,7 +1,5 @@
 <template>
-  <b-button v-if="authenticated" type="is-danger" @click="signout"
-    >Logout</b-button
-  >
+  <b-button type="is-danger" @click="signout">Logout</b-button>
 </template>
 
 <script>

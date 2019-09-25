@@ -1,13 +1,13 @@
 <template>
   <div>
-    <b-logout />
+    <navbar />
     <nuxt />
   </div>
 </template>
 
 <script>
-import BLogout from '@/components/LogoutButton'
+import Navbar from '@/components/Navbar'
 export default {
-  components: { BLogout }
+  components: { Navbar }
 }
 </script>

@@ -27,6 +27,7 @@
 import fetch from 'isomorphic-fetch'
 import BBack from '@/components/BackButton'
 export default {
+  middleware: ['auth'],
   components: {
     BBack
   },

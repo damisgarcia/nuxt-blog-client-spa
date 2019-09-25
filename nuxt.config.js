@@ -1,5 +1,5 @@
 module.exports = {
-  mode: 'spa',
+  mode: 'universal',
   /*
    ** Headers of the page
    */
@@ -31,12 +31,10 @@ module.exports = {
    ** Plugins to load before mounting the App
    */
   plugins: [
-    { src: '~plugins/vuex-persist.js' },
-    { src: '~plugins/vee-validate.js' }
+    { src: '~plugins/vee-validate.js' },
+    { src: '~plugins/vuex-persist', mode: 'client' }
   ],
-  router: {
-    middleware: ['authenticated']
-  },
+  router: {},
   /*
    ** Nuxt.js dev-modules
    */
@@ -52,7 +50,9 @@ module.exports = {
     'nuxt-buefy',
     '@nuxtjs/style-resources',
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    // Doc: https://auth.nuxtjs.org
+    '@nuxtjs/auth'
   ],
   /*
    ** Buefy module configuration
@@ -61,7 +61,26 @@ module.exports = {
   buefy: {
     css: false
   },
-  axios: {},
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: 'login', method: 'post', propertyName: 'data.token' },
+          user: { url: 'me', method: 'get', propertyName: 'data' },
+          logout: false
+        }
+      }
+    },
+    redirect: {
+      login: '/auth/login',
+      logout: '/',
+      callback: '/auth/login',
+      home: '/'
+    }
+  },
+  axios: {
+    baseURL: 'http://127.0.0.1:3333/api'
+  },
   /*
    ** Globals Styles
    */

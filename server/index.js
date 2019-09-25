@@ -13,6 +13,15 @@ async function start() {
 
   const { host, port } = nuxt.options.server
 
+  app.post('/api/auth/login', (req, res) => {
+    console.log(req.body)
+    res.send('Hello')
+  })
+
+  app.get('/api/auth/user', (req, res) => {
+    res.send({ email: 'admin@mail', password: '123456' })
+  })
+
   // Build only in dev mode
   if (config.dev) {
     const builder = new Builder(nuxt)
